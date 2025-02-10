@@ -16,6 +16,7 @@ end
 -- [[ Godot configuration ]]
 -- Start nvim server if a project.godot file is detected.
 local godot_projectfile = vim.fn.getcwd() .. "/project.godot"
-if godot_projectfile then
-  vim.fn.serverstart(vim.fn.stdpath("run") .. "/godot.pipe")
+local godot_socket_path = vim.fn.stdpath("run") .. "/godot.pipe"
+if godot_projectfile and not vim.uv.fs_stat(godot_socket_path) then
+  vim.fn.serverstart(godot_socket_path)
 end
