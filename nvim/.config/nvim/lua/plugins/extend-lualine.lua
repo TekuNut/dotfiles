@@ -8,6 +8,7 @@ end
 return {
   "nvim-lualine/lualine.nvim",
   opts = {
+    theme = "catppuccin",
     disabled_filetypes = {
       winbar = {
         "help",

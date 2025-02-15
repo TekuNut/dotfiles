@@ -1,24 +1,114 @@
 return {
   "mrjones2014/smart-splits.nvim",
-  init = function()
-    -- recommended mappings
-    -- resizing splits
-    -- these keymaps will also accept a range
-    -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-    vim.keymap.set("n", "<M-h>", require("smart-splits").resize_left)
-    vim.keymap.set("n", "<M-j>", require("smart-splits").resize_down)
-    vim.keymap.set("n", "<M-k>", require("smart-splits").resize_up)
-    vim.keymap.set("n", "<M-l>", require("smart-splits").resize_right)
-    -- moving between splits
-    vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
-    vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
-    vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
-    vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)
-    vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous)
-    -- swapping buffers between windows
-    vim.keymap.set("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
-    vim.keymap.set("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
-    vim.keymap.set("n", "<leader><leader>k", require("smart-splits").swap_buf_up)
-    vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
-  end,
+  lazy = false,
+  opts = {
+    -- NOTE: `wrap` is not supported on Kitty terminal
+    at_edge = "wrap",
+  },
+  keys = {
+    {
+      "<C-h>",
+      function()
+        require("smart-splits").move_cursor_left()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Move to left window",
+    },
+    {
+      "<C-j>",
+      function()
+        require("smart-splits").move_cursor_down()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Move to bottom window",
+    },
+    {
+      "<C-k>",
+      function()
+        require("smart-splits").move_cursor_up()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Move to top window",
+    },
+    {
+      "<C-l>",
+      function()
+        require("smart-splits").move_cursor_right()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Move to right window",
+    },
+    {
+      "<C-\\>",
+      function()
+        require("smart-splits").move_cursor_previous()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Move to previous window",
+    },
+    {
+      "<M-h>",
+      function()
+        require("smart-splits").resize_left()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Grow window left",
+    },
+    {
+      "<M-j>",
+      function()
+        require("smart-splits").resize_down()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Grow window down",
+    },
+    {
+      "<M-k>",
+      function()
+        require("smart-splits").resize_up()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Grow window up",
+    },
+    {
+      "<M-l>",
+      function()
+        require("smart-splits").resize_right()
+      end,
+      mode = { "i", "n", "v" },
+      desc = "Grow window right",
+    },
+    {
+      "<leader><leader>h",
+      function()
+        require("smart-splits").swap_buf_left()
+      end,
+      mode = { "n" },
+      desc = "Swap window left",
+    },
+    {
+      "<leader><leader>j",
+      function()
+        require("smart-splits").swap_buf_down()
+      end,
+      mode = { "n" },
+      desc = "Swap window down",
+    },
+    {
+      "<leader><leader>k",
+      function()
+        require("smart-splits").swap_buf_up()
+      end,
+      mode = { "n" },
+      desc = "Swap window up",
+    },
+    {
+      "<leader><leader>l",
+      function()
+        require("smart-splits").swap_buf_right()
+      end,
+      mode = { "n" },
+      desc = "Swap window right",
+    },
+  },
 }
