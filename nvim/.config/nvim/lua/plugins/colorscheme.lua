@@ -3,6 +3,11 @@ return {
   lazy = true,
   name = "catppuccin",
   opts = {
+    dim_inactive = {
+      enabled = true, -- dims the background color of inactive windows
+      shade = "dark",
+      percentage = 0.30,
+    },
     integrations = {
       harpoon = true,
       mason = true,
