@@ -73,7 +73,7 @@ end
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- Send C-a when pressing C-a twice
-	{ key = "a", mods = "LEADER", action = act.SendKey({ key = "a", mods = "CTRL" }) },
+	{ key = "a", mods = "LEADER|CTRL", action = act.SendKey({ key = "a", mods = "CTRL" }) },
 	{ key = "phys:Space", mods = "LEADER", action = act.ActivateCommandPalette },
 	-- plane action mode to simulate inputs like <LDR-w-s>
 	{
