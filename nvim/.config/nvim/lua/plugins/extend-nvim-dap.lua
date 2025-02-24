@@ -21,4 +21,35 @@ return {
       }
     end
   end,
+  keys = {
+    -- Use Jetbrain keybindings for frequent debug operations.
+    {
+      "<F7>",
+      function()
+        require("dap").step_into()
+      end,
+      "Step Into",
+    },
+    {
+      "<F8>",
+      function()
+        require("dap").step_over()
+      end,
+      "Step Over",
+    },
+    {
+      "<S-F8>",
+      function()
+        require("dap").step_out()
+      end,
+      "Step Out",
+    },
+    {
+      "<F9>",
+      function()
+        require("dap").continue()
+      end,
+      "Run/Continue",
+    },
+  },
 }

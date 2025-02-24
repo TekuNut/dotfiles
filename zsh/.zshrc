@@ -70,7 +70,7 @@ ZSH_THEME="custom-robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git toolbox)
+plugins=(git toolbox direnv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,4 +103,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias gdvim="nvim --listen /tmp/godot.pipe"
