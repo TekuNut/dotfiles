@@ -21,6 +21,7 @@ function scheme_for_appearance(appearance)
 	end
 end
 
+config.enable_wayland = false
 config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 config.window_decorations = "RESIZE"
 config.window_close_confirmation = "AlwaysPrompt"
@@ -30,6 +31,9 @@ config.inactive_pane_hsb = {
 	saturation = 0.7,
 	brightness = 0.8,
 }
+
+-- Disable ligatures
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 -- Have the first click only focus the clicked pane
 config.swallow_mouse_click_on_pane_focus = true
