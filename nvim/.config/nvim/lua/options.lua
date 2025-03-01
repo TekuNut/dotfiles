@@ -6,8 +6,7 @@
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -22,6 +21,10 @@ vim.opt.showmode = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
+
+-- Disable vim swapfiles and backups
+vim.opt.swapfile = false
+vim.opt.backup = false
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -55,13 +58,22 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
+-- Disable search highlights persisting
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 20
 
 -- Show the current filename and modified status in the window bar.
 vim.opt.winbar = '%=%m %F'
+
+-- Enable true colors
+vim.opt.termguicolors = true
+
+vim.opt.laststatus = 3
 
 -- vim: ts=2 sts=2 sw=2 et
