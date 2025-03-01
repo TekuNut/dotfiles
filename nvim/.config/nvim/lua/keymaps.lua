@@ -37,8 +37,8 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Split window
-vim.keymap.set('n', 'ws', ':split<Return>', opts)
-vim.keymap.set('n', 'wv', ':vsplit<Return>', opts)
+vim.keymap.set('n', '<leader>ws', ':split<Return>', opts)
+vim.keymap.set('n', '<leader>wv', ':vsplit<Return>', opts)
 
 -- Resize window
 vim.keymap.set('n', '<C-w><left>', '<C-w><')
