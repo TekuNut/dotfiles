@@ -49,6 +49,9 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+-- Keep the cursor in the same relative position on split close.
+vim.opt.splitkeep = 'cursor'
+
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
@@ -74,6 +77,19 @@ vim.opt.winbar = '%=%m %F'
 -- Enable true colors
 vim.opt.termguicolors = true
 
+-- Show a single statusline in the last window.
 vim.opt.laststatus = 3
 
+-- Default to utf-8 encoding
+vim.scriptencoding = 'utf-8'
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
+
+-- Configure default indentation for unknown file types.
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
+vim.opt.expandtab = true
+
+vim.opt.backspace = { 'start', 'eol', 'indent' }
 -- vim: ts=2 sts=2 sw=2 et
