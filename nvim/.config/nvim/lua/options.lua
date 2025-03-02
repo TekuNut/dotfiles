@@ -71,9 +71,6 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 20
 
--- Show the current filename and modified status in the window bar.
-vim.opt.winbar = '%=%m %F'
-
 -- Enable true colors
 vim.opt.termguicolors = true
 
