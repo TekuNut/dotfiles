@@ -59,20 +59,30 @@ return {
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>d', group = '[D]ebug' },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>f', group = '[F]ile/[F]ind' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>gh', group = '[G]it [H]unks', mode = { 'n', 'v' } },
+        { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
+        { '<leader>d', group = 'Debug' },
+        { '<leader>r', group = 'Rename' },
+        { '<leader>f', group = 'File/Find' },
+        { '<leader>t', group = 'Toggle' },
+        { '<leader>gh', group = 'Hunks', mode = { 'n', 'v' } },
+        { '<leader>q', group = 'Quit' },
         {
           '<leader>w',
-          group = '[W]indow',
+          group = 'Window',
           proxy = '<c-w>',
           expand = function()
             return require('which-key.extras').expand.win()
           end,
         },
+      },
+    },
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show { global = false }
+        end,
+        desc = 'Buffer Keymaps (which-key)',
       },
     },
   },
