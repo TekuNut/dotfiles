@@ -4,13 +4,26 @@
 " Find more examples here: https://jb.gg/share-ideavimrc
 let mapleader = " "
 
+" Show relative offsets in the line number
+set linenumber
+set relativenumber
+
+" Show current mode and command at the bottom of the screen.
+set showmode
+set showcmd
+
+" Use the system clipboard
+set clipboard+=unnamed
+
+
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
-set scrolloff=5
+set scrolloff=20
 
-" Do incremental searching.
+" Do incremental searching. Highlight search results.
 set incsearch
+set hlsearch
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
@@ -21,21 +34,78 @@ Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
 
-" Split windows
-unbind <M-K>
-nmap <leader>- <Action>(SplitHorizontally)
-nmap <leader>| <Action>(SplitVertically)
+" Enable bundled surround plugin.
+" cs"' - Change surrounding "'s into 's.
+"
+set surround
 
-" Close active window
-unbind <C-S-F4>
-nmap <leader>wq <Action>(CloseEditor)
+" Enable management of file browser via vim bindings.
+set nerdtree
+
+" Show keybindings when leader is pressed.
+set which-key
+set notimeout
+
 
 " Navigate windows with Ctrl + h,j,k,l
-sethandler <c-h> a:vim
-sethandler <c-l> a:vim
 sethandler <c-j> a:vim
 sethandler <c-k> a:vim
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+
+
+" Comment lines
+map gcc <action>(CommentByLineComment)
+
+" Reload IdeaVim configuration
+nnoremap r :action IdeaVim.ReloadVimRc.reload<CR>
+
+
+"" Leader commands
+"" ========================================================
+
+" Close active tab
+map <leader>q <action>(CloseContent)
+
+" File navigation
+map <leader>ff <action>(GotoFile)
+map <leader>fr <action>(RecentFiles)
+map <leader>fc <action>(FindInPath)
+map <leader><leader> <Action>(RecentFiles)
+map <leader>fl <action>(RecentLocations)
+map <leader>fs <action>(NewScratchFile)
+
+" Tab navigation
+nnoremap <leader>]<tab> :action NextTab<CR>
+nnoremap <leader>[<tab> :action PreviousTab<CR>
+
+" Method navigation
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+
+" Split windows
+unbind <M-K>
+nmap <leader>ws <Action>(SplitHorizontally)
+nmap <leader>wv <Action>(SplitVertically)
+
+" Close active tab
+nmap <leader>wq <Action>(CloseEditor)
+
+" Refactoring
+map <leader>rn <Action>(RenameElement)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rf <Action>(IntroduceField)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+
+" Zoom current window
+nmap <leader>uZ <Action>(ToggleDistractionFreeMode)
+
+" Debugging
+map <leader>b <Action>(ToggleLineBreakpoint)
+
+" Terminal
+nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
