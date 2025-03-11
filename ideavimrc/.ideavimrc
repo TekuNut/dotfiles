@@ -23,7 +23,7 @@ set scrolloff=20
 
 " Do incremental searching. Highlight search results.
 set incsearch
-set hlsearch
+" set hlsearch
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
@@ -46,6 +46,9 @@ set nerdtree
 set which-key
 set notimeout
 
+" Enable mini.ai
+set mini-ai
+
 
 " Navigate windows with Ctrl + h,j,k,l
 sethandler <c-j> a:vim
@@ -60,10 +63,17 @@ nnoremap <C-k> <C-w>k
 map gcc <action>(CommentByLineComment)
 
 " Reload IdeaVim configuration
-nnoremap r :action IdeaVim.ReloadVimRc.reload<CR>
+nnoremap <leader>rc :action IdeaVim.ReloadVimRc.reload<CR>
+
+" Completion
+inoremap <C-y> <C-o>:action EditorCompleteStatement<CR>
+
+" Method navigation
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
 
 
-"" Leader commands
+" Leader commands
 "" ========================================================
 
 " Close active tab
@@ -72,18 +82,16 @@ map <leader>q <action>(CloseContent)
 " File navigation
 map <leader>ff <action>(GotoFile)
 map <leader>fr <action>(RecentFiles)
-map <leader>fc <action>(FindInPath)
-map <leader><leader> <Action>(RecentFiles)
+map <leader><leader> <action>(RecentFiles)
 map <leader>fl <action>(RecentLocations)
 map <leader>fs <action>(NewScratchFile)
+
+" Search
+map <leader>sg <action>(FindInPath)
 
 " Tab navigation
 nnoremap <leader>]<tab> :action NextTab<CR>
 nnoremap <leader>[<tab> :action PreviousTab<CR>
-
-" Method navigation
-nnoremap [[ :action MethodUp<CR>
-nnoremap ]] :action MethodDown<CR>
 
 " Split windows
 unbind <M-K>
@@ -105,7 +113,16 @@ map <leader>rr <Action>(Refactorings.QuickListPopupAction)
 nmap <leader>uZ <Action>(ToggleDistractionFreeMode)
 
 " Debugging
-map <leader>b <Action>(ToggleLineBreakpoint)
+nmap <leader>b <Action>(ToggleLineBreakpoint)
+nmap <leader>dB <Action>(EditBreakpoint)
+nmap <F1> <Action>(Continue)
+nmap <F2> <Action>(StepInto)
+nmap <F3> <Action>(StepOver)
+nmap <F4> <Action>(StepOut)
+nmap <leader>? <Action>(Debugger.EvaluateInConsole)
 
 " Terminal
-nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
+nnoremap <leader>ft :action Terminal.OpenInTerminal<CR>
+
+" Todo
+map <leader>st <action>(ActivateTODOToolWindow)
