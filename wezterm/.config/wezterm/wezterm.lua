@@ -21,9 +21,43 @@ function scheme_for_appearance(appearance)
 	end
 end
 
+local function is_inside_vim(pane)
+	local tty = pane:get_tty_name()
+	if tty == nil then
+		return false
+	end
+
+	local success, stdout, stderr = wezterm.run_child_process({
+		"sh",
+		"-c",
+		"ps -o state= -o comm= -t"
+			.. wezterm.shell_quote_arg(tty)
+			.. " | "
+			.. "grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'",
+	})
+
+	return success
+end
+
+local function is_outside_vim(pane)
+	return not is_inside_vim(pane)
+end
+
+local function bind_if(cond, key, mods, action)
+	local function callback(win, pane)
+		if cond(pane) then
+			win:perform_action(action, pane)
+		else
+			win:perform_action(act.SendKey({ key = key, mods = mods }), pane)
+		end
+	end
+
+	return { key = key, mods = mods, action = wezterm.action_callback(callback) }
+end
+
 config.enable_wayland = false
 config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
 config.window_close_confirmation = "AlwaysPrompt"
 config.scrollback_lines = 3000
 
@@ -37,41 +71,6 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 -- Have the first click only focus the clicked pane
 config.swallow_mouse_click_on_pane_focus = true
-
--- Smart split navigation
--- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
-local function is_vim(pane)
-	-- this is set by the plugin, and unset on ExitPre in Neovim
-	return pane:get_user_vars().IS_NVIM == "true"
-end
-
-local direction_keys = {
-	h = "Left",
-	j = "Down",
-	k = "Up",
-	l = "Right",
-}
-
-local function split_nav(resize_or_move, key)
-	return {
-		key = key,
-		mods = resize_or_move == "resize" and "META" or "CTRL",
-		action = wezterm.action_callback(function(win, pane)
-			if is_vim(pane) then
-				-- pass the keys through to vim/nvim
-				win:perform_action({
-					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
-				}, pane)
-			else
-				if resize_or_move == "resize" then
-					win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
-				else
-					win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-				end
-			end
-		end),
-	}
-end
 
 -- Keybindings
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
@@ -89,16 +88,13 @@ config.keys = {
 			timeout_milliseconds = 1000,
 		}),
 	},
-	-- move between split panes
-	split_nav("move", "h"),
-	split_nav("move", "j"),
-	split_nav("move", "k"),
-	split_nav("move", "l"),
-	-- resize panes
-	split_nav("resize", "h"),
-	split_nav("resize", "j"),
-	split_nav("resize", "k"),
-	split_nav("resize", "l"),
+
+	-- Pane navigation, with support for vim
+	bind_if(is_outside_vim, "h", "CTRL", act.ActivatePaneDirection("Left")),
+	bind_if(is_outside_vim, "l", "CTRL", act.ActivatePaneDirection("Right")),
+	bind_if(is_outside_vim, "j", "CTRL", act.ActivatePaneDirection("Down")),
+	bind_if(is_outside_vim, "k", "CTRL", act.ActivatePaneDirection("Up")),
+
 	-- other pane keybindings
 	{
 		key = "v",
