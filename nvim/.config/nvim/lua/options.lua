@@ -89,4 +89,8 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true
 
 vim.opt.backspace = { 'start', 'eol', 'indent' }
+
+-- Disable word wrapping
+vim.opt.wrap = false
+
 -- vim: ts=2 sts=2 sw=2 et
