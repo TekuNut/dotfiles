@@ -1,6 +1,23 @@
 return {
   { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
+    lazy = false,
+    keys = {
+      {
+        '<leader>fm',
+        function()
+          require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
+        end,
+        desc = 'Open mini.files (Directory of Current File)',
+      },
+      {
+        '<leader>fM',
+        function()
+          require('mini.files').open(vim.uv.cwd(), true)
+        end,
+        desc = 'Open mini.files (cwd)',
+      },
+    },
     config = function()
       -- Better Around/Inside textobjects
       --
@@ -17,23 +34,18 @@ return {
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      -- local statusline = require 'mini.statusline'
-      -- -- set use_icons to true if you have a Nerd Font
-      -- statusline.setup { use_icons = vim.g.have_nerd_font }
-      --
-      -- -- You can configure sections in the statusline by overriding their
-      -- -- default behavior. For example, here we set the section for
-      -- -- cursor location to LINE:COLUMN
-      -- ---@diagnostic disable-next-line: duplicate-set-field
-      -- statusline.section_location = function()
-      --   return '%2l:%-2v'
-      -- end
+      require('mini.icons').setup()
 
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
+      require('mini.files').setup {
+        windows = {
+          preview = true,
+          width_focus = 30,
+          width_preview = 50,
+        },
+        options = {
+          use_as_default_explorer = true,
+        },
+      }
     end,
   },
 }

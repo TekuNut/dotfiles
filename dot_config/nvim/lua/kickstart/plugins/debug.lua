@@ -21,6 +21,8 @@ return {
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
+    'theHamsta/nvim-dap-virtual-text',
+
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
   },
@@ -62,6 +64,13 @@ return {
       desc = 'Debug: Toggle Breakpoint',
     },
     {
+      '<leader>gb',
+      function()
+        require('dap').run_to_cursor()
+      end,
+      desc = 'Debug: Run to cursor',
+    },
+    {
       '<leader>B',
       function()
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
@@ -80,6 +89,8 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+
+    require('nvim-dap-virtual-text').setup()
 
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
@@ -142,6 +153,32 @@ return {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has 'win32' == 0,
+      },
+    }
+
+    dap.adapters.lldb = {
+      type = 'executable',
+      command = 'lldb-dap',
+      name = 'lldb',
+    }
+
+    dap.adapters.gdb = {
+      type = 'executable',
+      command = 'gdb',
+      args = { '--quiet', '--interpreter=dap' },
+    }
+
+    dap.configurations.zig = {
+      {
+        name = 'Launch File',
+        type = 'gdb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/zig-out/bin', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopAtEntry = true,
+        args = {},
       },
     }
   end,

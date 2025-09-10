@@ -6,7 +6,7 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
-    explorer = { enabled = true },
+    explorer = { enabled = false },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = {
@@ -62,20 +62,20 @@ return {
       end,
       desc = 'Notification History',
     },
-    {
-      '<leader>fe',
-      function()
-        Snacks.explorer { cwd = vim.fs.root(0, '.git') }
-      end,
-      desc = 'File Explorer (root)',
-    },
-    {
-      '<leader>fE',
-      function()
-        Snacks.explorer()
-      end,
-      desc = 'File Explorer (cwd)',
-    },
+    -- {
+    --   '<leader>fe',
+    --   function()
+    --     Snacks.explorer { cwd = vim.fs.root(0, '.git') }
+    --   end,
+    --   desc = 'File Explorer (root)',
+    -- },
+    -- {
+    --   '<leader>fE',
+    --   function()
+    --     Snacks.explorer()
+    --   end,
+    --   desc = 'File Explorer (cwd)',
+    -- },
     -- find
     {
       '<leader>fb',
