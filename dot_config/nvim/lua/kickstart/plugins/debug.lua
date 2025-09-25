@@ -180,6 +180,12 @@ return {
         stopAtEntry = true,
         args = {},
       },
+      {
+        name = 'Attach to process (GDB)',
+        type = 'gdb',
+        request = 'attach',
+        processId = require('dap.utils').pick_process,
+      },
     }
   end,
 }
