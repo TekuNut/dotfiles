@@ -8,6 +8,7 @@
 --- My Wezterm config file
 
 local wezterm = require("wezterm")
+local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 local act = wezterm.action
 
 local config = wezterm.config_builder()
@@ -38,41 +39,6 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 -- Have the first click only focus the clicked pane
 config.swallow_mouse_click_on_pane_focus = true
 
--- Smart split navigation
--- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
-local function is_vim(pane)
-	-- this is set by the plugin, and unset on ExitPre in Neovim
-	return pane:get_user_vars().IS_NVIM == "true"
-end
-
-local direction_keys = {
-	h = "Left",
-	j = "Down",
-	k = "Up",
-	l = "Right",
-}
-
-local function split_nav(resize_or_move, key)
-	return {
-		key = key,
-		mods = resize_or_move == "resize" and "META" or "CTRL",
-		action = wezterm.action_callback(function(win, pane)
-			if is_vim(pane) then
-				-- pass the keys through to vim/nvim
-				win:perform_action({
-					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
-				}, pane)
-			else
-				if resize_or_move == "resize" then
-					win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
-				else
-					win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-				end
-			end
-		end),
-	}
-end
-
 -- Keybindings
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
@@ -89,16 +55,6 @@ config.keys = {
 			timeout_milliseconds = 1000,
 		}),
 	},
-	-- move between split panes
-	split_nav("move", "h"),
-	split_nav("move", "j"),
-	split_nav("move", "k"),
-	split_nav("move", "l"),
-	-- resize panes
-	split_nav("resize", "h"),
-	split_nav("resize", "j"),
-	split_nav("resize", "k"),
-	split_nav("resize", "l"),
 	-- other pane keybindings
 	{
 		key = "v",
@@ -211,6 +167,17 @@ wezterm.on("update-status", function(window, pane)
 		{ Text = " | " },
 	}))
 end)
+
+smart_splits.apply_to_config(config, {
+	direction_keys = {
+		move = { "h", "j", "k", "l" },
+		resize = { "LeftArrow", "DownArrow", "UpArrow", "RightArrow" },
+	},
+	modifiers = {
+		move = "CTRL",
+		resize = "ALT",
+	},
+})
 
 -- Return config to be evaluated. Must always be at the bottom of the file
 return config
