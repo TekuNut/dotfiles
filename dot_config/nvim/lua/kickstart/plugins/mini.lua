@@ -18,6 +18,13 @@ return {
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      -- Move selection in any direction
+      -- <M-h> - Move line left
+      -- <M-l> - Move line right
+      -- <M-j> - Move line down
+      -- <M-k> - Move line up
+      require('mini.move').setup()
+
       require('mini.icons').setup()
     end,
   },
