@@ -100,6 +100,10 @@ map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
 map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 
+-- LSP
+map('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename'})
+map({'n', 'v'}, 'gra', vim.lsp.buf.code_action, { desc = 'Code Action'})
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
