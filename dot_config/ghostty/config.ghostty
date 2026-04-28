@@ -1,5 +1,7 @@
-theme = Catppuccin Frappe
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
+
+shell-integration-features = ssh-env,ssh-terminfo
 
 # Linux
 gtk-titlebar-style = tabs
-gtk-wide-tabs = false
+gtk-wide-tabs = true
