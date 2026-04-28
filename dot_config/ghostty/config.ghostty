@@ -1,0 +1,5 @@
+theme = Catppuccin Frappe
+
+# Linux
+gtk-titlebar-style = tabs
+gtk-wide-tabs = false
