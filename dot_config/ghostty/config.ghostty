@@ -2,6 +2,8 @@ theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 
 shell-integration-features = ssh-env,ssh-terminfo
 
+mouse-scroll-multiplier = precision:3,discrete:5
+
 # Keybindings
 keybind = ctrl+a>r=reload_config
 keybind = ctrl+a>q=close_surface
