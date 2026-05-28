@@ -36,6 +36,15 @@ return {
       desc = 'Debug: Start/Continue',
     },
     {
+      '<leader><F5>',
+      function()
+        require('dap').terminate()
+        require('dapui').close()
+        require('nvim-dap-virtual-text').refresh()
+      end,
+      desc = 'Debug: Force Close',
+    },
+    {
       '<F1>',
       function()
         require('dap').step_into()
