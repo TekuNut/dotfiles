@@ -18,9 +18,10 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+-- vim.schedule(function()
+--   vim.opt.clipboard = 'unnamedplus'
+--   vim.g.clipboard = 'osc52'
+-- end)
 
 -- Disable vim swapfiles and backups
 vim.opt.swapfile = false
@@ -96,11 +97,10 @@ vim.opt.wrap = false
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
-vim.o.confirm = true 
+vim.o.confirm = true
 
 -- enable per-project .nvim/ and .nvim.lua configuration
 vim.opt.exrc = true
-
 
 -- [[Diagnostic Configuration]]
 vim.diagnostic.config { virtual_lines = { current_line = true } }

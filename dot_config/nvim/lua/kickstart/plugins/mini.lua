@@ -38,6 +38,22 @@ return {
     dependencies = {
       'mini.icons',
     },
+    keys = {
+      {
+        '<leader>fm',
+        function()
+          require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
+        end,
+        desc = 'Open mini.files (Directory of Current File)',
+      },
+      {
+        '<leader>fM',
+        function()
+          require('mini.files').open(vim.uv.cwd(), true)
+        end,
+        desc = 'Open mini.files (cwd)',
+      },
+    },
   },
 }
 -- vim: ts=2 sts=2 sw=2 et

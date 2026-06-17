@@ -434,13 +434,7 @@ return {
       end,
       desc = 'Notification History',
     },
-    {
-      '<leader>bd',
-      function()
-        Snacks.bufdelete()
-      end,
-      desc = 'Delete Buffer',
-    },
+    
     {
       '<leader>cR',
       function()

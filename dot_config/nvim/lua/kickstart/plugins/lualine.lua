@@ -6,7 +6,7 @@ return {
       globalstatus = true,
       disabled_filetypes = {
         statusline = { 'dashboard', 'ministarter' },
-        winbar = { 'dashboard', 'ministarter', 'NVimTree' },
+        winbar = { 'dashboard', 'ministarter', 'NVimTree', 'dap-view', 'dap-repl', 'dap-disassembly' },
       },
     },
     winbar = {

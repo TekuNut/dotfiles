@@ -14,6 +14,10 @@ map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
 --  See `:help hlsearch`
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Prevent deletion from setting clipboard content
+-- map({ 'n', 'v' }, 'x', '"_x')
+-- map({ 'n', 'v' }, 'd', '"_d')
+
 -- Diagnostic keymaps
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -101,8 +105,8 @@ map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 
 -- LSP
-map('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename'})
-map({'n', 'v'}, 'gra', vim.lsp.buf.code_action, { desc = 'Code Action'})
+map('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename' })
+map({ 'n', 'v' }, 'gra', vim.lsp.buf.code_action, { desc = 'Code Action' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
