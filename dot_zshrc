@@ -1,3 +1,10 @@
+# Load extra configuration files
+if [[ -d $HOME/.zshrc.d ]]; then
+  for f in $(find $HOME/.zshrc.d -type f  | egrep -v '.swp$' | egrep -v '.disabled$' | sort) ; do
+    source "$f"
+  done
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -51,11 +58,3 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 # Aliases
 alias ls='ls --color'
 
-
-export EDITOR=nvim
-export CMAKE_GENERATOR=Ninja
-
-# Load extra configuration files
-for f in $(find $HOME/.zshrc.d -type f  | egrep -v '.swp$' | egrep -v '.disabled$' | sort) ; do
-  source "$f"
-done
