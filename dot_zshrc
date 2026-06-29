@@ -26,6 +26,11 @@ zinit light zsh-users/zsh-autosuggestions
 # Add snippets
 zinit snippet OMZP::git
 
+# Integrate fzf if it is installed.
+if type fzf > /dev/null; then
+  source <(fzf --zsh)
+fi
+
 # Load completions
 autoload -Uz compinit && compinit
 
